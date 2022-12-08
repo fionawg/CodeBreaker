@@ -1,0 +1,110 @@
+<!--Fiona Wang, Web Dev Period 7+8 Section 85, Nov 23, CodeBreaker-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var count = 0;
+        var numTries = 7;
+
+        function initialize()
+        {
+            let numOne = Math.floor(Math.random()*3)+1;
+            let numTwo = Math.floor(Math.random()*3)+1;
+            let numThree = Math.floor(Math.random()*3)+1;
+            num = parseInt(numOne + "" + numTwo + numThree);
+            numGuess = document.getElementById('guesses');
+            guess = document.getElementById('display');
+            past = document.getElementById('history');
+            numGuess.innerHTML=numTries;
+        }
+
+        function minusTries()
+        {
+            numTries--;
+            numGuess.innerHTML=numTries;
+            if (numTries==0){
+                numGuess.innerHTML="THE GAME IS OVER!";
+            }
+        }
+
+        function resetTries()
+        {
+            numTries = 7;
+            numGuess.innerHTML=numTries;
+        }
+
+        function clearGuess()
+        {
+            count = 0;
+            let temp = guess.innerHTML;
+            guess.innerHTML = "";
+            return temp;
+        }
+
+        function clickOne()
+        {
+            guess.innerHTML+="1";
+            count++;
+            if (count == 3)
+            {
+                checkGuess();
+            }
+        }
+
+        function clickTwo()
+        {
+            guess.innerHTML+="2";
+            count++;
+            if (count == 3)
+            {
+                checkGuess();
+            }
+        }
+
+        function clickThree()
+        {
+            guess.innerHTML+="3";
+            count++;
+            if (count == 3)
+            {
+                checkGuess();
+            }
+        }
+
+        function checkGuess()
+        {
+            count = 0;
+            minusTries();
+            let temp = clearGuess();
+            past.innerHTML+=(temp + " is ");
+            if (parseInt(temp) > num)
+            {
+                past.innerHTML+="greater than the code.<br>"
+            } else if (parseInt(temp) < num){
+                past.innerHTML+="less than the code.<br>"
+            } else {
+                numGuess.innerHTML="YOU WIN THE CODE WAS " + temp + "!!";
+                past.innerHTML+="CORRECT!";
+            }
+        }
+    </script>
+</head>
+<body onload="initialize();">
+    <p id="count"></p>
+    <span>Number of Guesses: </span>
+    <span id="guesses"></span>
+    <h3>Guess:</h3>
+    <h1 id="display"></h1>
+    <button onclick="clickOne();">1</button>
+    <button onclick="clickTwo();">2</button>
+    <button onclick="clickThree();">3</button>
+    <button onclick="clearGuess();">Clear</button>
+    <p id="history"><p>
+    <button onclick="location.reload();">Click when you win or the game is over to reset!</button>
+</body>
+</html>
